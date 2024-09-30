@@ -1,0 +1,89 @@
+<section class="parent">
+    <!-- Lista de personas agregadas -->
+    <mat-card class="example-card" *ngIf="isPersonAdded">
+      <app-person-list></app-person-list>
+    </mat-card>
+    
+    <!-- Formulario comprimido dentro de un <details> -->
+    <details [open]="!isPersonAdded">
+      <summary> </summary>
+     
+      
+      <mat-card class="example-card" *ngIf="!loading">
+        <mat-card-header>
+          <mat-card-title>Agregar Persona:</mat-card-title>
+        </mat-card-header>
+
+       
+  
+        <mat-card-content>
+          <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+            <!-- Campo Nombre -->
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name">
+              <div class="alert alert-danger mt-2" 
+                   *ngIf="personForm.get('name')?.invalid && (personForm.get('name')?.touched || personForm.get('name')?.dirty)">
+                Ese nombre no es valido
+              </div>
+            </mat-form-field>
+  
+            <!-- Campo Edad -->
+            <mat-form-field appearance="fill">
+              <mat-label>Edad</mat-label>
+              <input matInput type="number" formControlName="age">
+              <div class="alert alert-danger mt-2"
+                   *ngIf=" personForm.get('age')?.errors?.['isAdult']  && personForm.get('age')?.invalid && (personForm.get('age')?.touched || personForm.get('age')?.dirty )">
+                La edad es obligatoria y  Debe ser mayor a 18
+               
+              </div>
+
+
+            </mat-form-field>
+  
+            <!-- Campo Habilidades -->
+            <mat-form-field appearance="fill">
+              <mat-label>Habilidad</mat-label>
+              <input matInput placeholder="Agregar habilidad" [formControl]="skillControl">
+            </mat-form-field>
+  
+            <div *ngIf="skills.length > 0">
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let skill of skills; let i = index" (removed)="removeSkill(i)">
+                  {{ skill }}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </mat-chip-listbox>
+            </div>
+  
+            <mat-divider></mat-divider>
+  
+            <mat-card-actions>
+              <button mat-raised-button color="primary" type="button" style="display: block;" (click)="addSkill()">
+                Agregar Habilidad
+              </button>
+              <button mat-raised-button color="primary" type="submit" [disabled]="isAddPersonDisabled()">
+                Agregar Persona
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-card-content>
+  
+        <mat-card-footer>
+          <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+        </mat-card-footer>
+      </mat-card>
+    </details>
+  
+    <!-- Botón para agregar otra persona -->
+    <button  mat-button type="submit" style="padding-left: 50px;  "*ngIf="isPersonAdded" (click)="resetForm()">
+      Agregar Otra Persona
+    </button>
+
+    <button mat-raised-button color="primary" type="submit" style="margin: 10px;"  (click)="saveTask()" *ngIf="isPersonAdded">
+      Guardar Tarea
+    </button>
+  </section>
+  

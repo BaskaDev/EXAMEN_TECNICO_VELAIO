@@ -1,0 +1,19 @@
+.example-card {
+    grid-area: 2 / 2 / 5 / 4; 
+    max-width: 400px;
+    width: 100%; 
+  }
+  
+  
+summary {
+    list-style: none; 
+    display: none;   
+  }
+
+  details {
+    cursor: pointer;
+  }
+  
+  .alert {
+    color: red; 
+  }

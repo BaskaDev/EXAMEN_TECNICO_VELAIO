@@ -1,0 +1,14 @@
+mat-list {
+    max-height: 300px; /* Ajusta la altura según sea necesario */
+    overflow-y: auto; /* Agrega desplazamiento si el contenido es largo */
+  }
+  
+  mat-list-item {
+    display: flex;
+    align-items: center; /* Centra el contenido verticalmente */
+  }
+  
+  mat-icon {
+    margin-right: 8px; /* Espacio entre el ícono y el texto */
+  }
+  

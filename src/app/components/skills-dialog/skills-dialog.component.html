@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ data.person.name }} - Habilidades</h1>
+<div mat-dialog-content>
+  <mat-list>
+    <mat-list-item *ngFor="let skill of data.person.skills">
+      <mat-icon matListItemIcon>-</mat-icon>
+      <span>{{ skill }}</span>
+    </mat-list-item>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cerrar</button>
+</div>

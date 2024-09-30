@@ -1,0 +1,48 @@
+.parent {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.example-card {
+  grid-area: 2 / 2 / 5 / 4; 
+  max-width: 400px;
+  width: 100%; 
+}
+
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  flex-direction: column; 
+}
+
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
+  
+  .article { grid-area: 5 / 3 / 6 / 4; }
+
+.mat-form-field {
+  width: 100%; 
+}
+
+.alert {
+  color: red; 
+}
+
+.custom-details summary {
+  list-style: none; 
+}
+
+.custom-details summary::-webkit-details-marker {
+  display: none;
+}

@@ -1,0 +1,74 @@
+<section class="parent">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title *ngIf="!taskAdded">Crear Tarea:</mat-card-title>
+      <mat-card-title *ngIf="taskAdded">{{ addedTask?.name }}</mat-card-title>
+      <mat-card-subtitle *ngIf="!taskAdded" style="padding: 10px;">Task-Manager</mat-card-subtitle>
+      <mat-card-content *ngIf="taskAdded">{{ addedTask?.date }}</mat-card-content>
+    </mat-card-header>
+
+    <details *ngIf="taskAdded" class="custom-details">
+      <summary>
+      
+              <app-person-form></app-person-form>
+          
+      </summary>
+    </details>
+
+    <mat-card-content>
+      <form *ngIf="!taskAdded" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de la Tarea</mat-label>
+          <input matInput formControlName="taskName">
+          <div class="alert alert-danger mt-2"
+               *ngIf="taskForm.get('taskName')?.invalid && (taskForm.get('taskName')?.touched || taskForm.get('taskName')?.dirty)">
+            El nombre es obligatorio
+          </div>
+          <div class="alert alert-danger mt-2"
+               *ngIf="taskForm.get('taskName')?.errors?.['lengthInvalid'] && (taskForm.get('taskName')?.touched || taskForm.get('taskName')?.dirty)">
+            El nombre debe tener más de 5 caracteres.
+          </div>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha límite</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dueDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <div class="alert alert-danger mt-2"
+               *ngIf="taskForm.get('dueDate')?.invalid && (taskForm.get('dueDate')?.touched || taskForm.get('dueDate')?.dirty)">
+            <ng-container *ngIf="taskForm.get('dueDate')?.errors?.['required']">La fecha es obligatoria</ng-container>
+            <ng-container *ngIf="taskForm.get('dueDate')?.errors?.['pastDate']">La fecha no puede ser pasada</ng-container>
+          </div>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
+            Agregar Tarea
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+
+   
+
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+
+ 
+
+  
+
+</section>
+
+
+<section  class="parent">
+  <mat-card class="example-card" >
+ 
+    <app-tasks-list ></app-tasks-list>
+  </mat-card>
+</section>

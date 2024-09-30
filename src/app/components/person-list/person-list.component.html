@@ -1,0 +1,15 @@
+<mat-list>
+    <mat-card-header>
+        <mat-card-title>Personas asociadas</mat-card-title>
+    </mat-card-header>
+    <mat-list-item *ngFor="let person of persons$ | async; trackBy trackPerson">
+      
+      <mat-card-content>
+        {{ person.name }}
+
+        <button mat-stroked-button color="primary"(click)="openDialog(person)">Ver Habilidades</button>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+  
