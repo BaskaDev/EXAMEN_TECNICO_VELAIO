@@ -16,7 +16,7 @@ Este proyecto es una aplicación web construida con Angular 16 que permite gesti
   - Servicio Angular para la gestión del estado de tareas, personas y habilidades.
   - Almacenamiento de tareas y personas en arreglos de objetos.
   - Habilidades almacenadas en un arreglo anidado dentro de cada persona.
-  - (Opcional) NgRx para la gestión del estado global de la aplicación.
+  - NgRx para la gestión del estado global de la aplicación.
 
 ## Tecnologías Utilizadas
 
