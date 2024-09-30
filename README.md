@@ -42,7 +42,7 @@ Este proyecto es una aplicación web construida con Angular 16 que permite gesti
    indigo pink , enable animations
 
    INSTALAR NgRx
-    ng add @ngrx/store-devtools@16
+    ng add @ngrx/store@
    DEV TOOLS NGRX
    ng add @ngrx/store-devtools@16
    
