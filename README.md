@@ -34,5 +34,5 @@ Este proyecto es una aplicación web construida con Angular 16 que permite gesti
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/tu-repo.git
-   cd tu-repo
+   git clone https://github.com/BaskaDev/EXAMEN_TECNICO_VELAIO.git
+   
