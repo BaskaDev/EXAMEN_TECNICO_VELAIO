@@ -6,15 +6,13 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-footer>
-      <div  class="filter-buttons">
-        <button mat-button color="primary" (click)="setFilter('all')" >Todas</button>
-        <button mat-button color="primary"  (click)="setFilter('pending')">Pendientes</button>
+      <div class="filter-buttons">
+        <button mat-button color="primary" (click)="setFilter('all')">Todas</button>
+        <button mat-button color="primary" (click)="setFilter('pending')">Pendientes</button>
         <button mat-button color="primary" (click)="setFilter('completed')">Completadas</button>
       </div>
     </mat-card-footer>
   </mat-card>
-
-
 
   <mat-card *ngFor="let task of filteredTasks$ | async; trackBy trackTask" class="task-card">
     <mat-card-header>
@@ -30,7 +28,6 @@
 
     <mat-card-content>
       <p><strong>Estado:</strong> {{ task.state ? 'Completada' : 'Pendiente' }}</p>
-
       <p><strong>Personas asociadas:</strong></p>
 
       <ul>
@@ -38,6 +35,9 @@
           {{ person.name }} ({{ person.age }} años) - Habilidades:
           <span *ngIf="person.skills.length; else noSkills">{{ person.skills.join(', ') }}</span>
           <ng-template #noSkills>No tiene habilidades registradas</ng-template>
+          
+          
+          <button mat-button color="warn" (click)="removePerson(task, i)">Borrar</button>
         </li>
 
         <li *ngIf="!task.persons?.length">No se han asignado personas</li>

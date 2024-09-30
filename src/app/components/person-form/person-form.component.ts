@@ -44,42 +44,33 @@ export class PersonFormComponent {
   isPersonAdded = false;
   store = inject(Store);
   persons$: Observable<any[]>;
-  task$ = this.store.select(selectTasks)
+  task$ = this.store.select(selectTasks);
 
-  constructor(private fb: FormBuilder , private serviceForm: StateFormService) {
-
-  
-
-    this.persons$ = this.store.select(selectPersons); // Get the list of persons from the store
-
-    
+  constructor(private fb: FormBuilder, private serviceForm: StateFormService) {
+    this.persons$ = this.store.select(selectPersons); 
 
     this.personForm = this.fb.group({
-      name: ['', [Validators.required, this.nameValidator.bind(this)]], // Add custom validator
+      name: ['', [Validators.required, this.nameValidator.bind(this)]], 
       age: ['', [Validators.required, Validators.min(1), this.isAdult]],
     });
   }
 
- 
-
-  // Custom validator to check for duplicate names
+  // TODO: Validate if the name is a duplicate
   nameValidator(control: FormControl): { [key: string]: any } | null {
     let isDuplicate = false;
     this.persons$.subscribe(persons => {
       isDuplicate = persons.some(person => person.name === control.value);
     });
-
     return isDuplicate ? { 'duplicateName': true } : null;
   }
 
-  isAdult(control : FormControl){
-      const age = control.value
-      if (age >= 18){
-        return null;
-      }
-      return { 'isAdult': true }; 
+  // TODO: Check if the age indicates the person is an adult
+  isAdult(control: FormControl) {
+    const age = control.value;
+    return age >= 18 ? null : { 'isAdult': true }; 
   }
 
+  // TODO: Add a skill to the list
   addSkill() {
     const skill = this.skillControl.value;
     if (skill) {
@@ -88,14 +79,17 @@ export class PersonFormComponent {
     }
   }
 
+  // TODO: Remove a skill from the list by index
   removeSkill(index: number) {
     this.skills.splice(index, 1);
   }
 
+  // TODO: Check if the add person button should be disabled
   isAddPersonDisabled(): boolean {
     return this.personForm.invalid || this.skills.length === 0;
   }
 
+  // TODO: Handle form submission and add a person
   onSubmit() {
     if (this.personForm.valid && this.skills.length > 0) {
       this.loading = true;
@@ -113,8 +107,8 @@ export class PersonFormComponent {
       this.skills = [];
     }
   }
-  
-  
+
+  // TODO: Save the task with the current persons
   saveTask() {
     combineLatest([this.persons$, this.task$]).pipe(
       take(1) 
@@ -122,9 +116,9 @@ export class PersonFormComponent {
       if (tasks && tasks.length > 0) {
         const lastTask = { ...tasks[tasks.length - 1] }; 
         lastTask.persons = persons; 
-  
+
         console.table(lastTask);
-  
+
         this.store.dispatch(updateTask({
           name: lastTask.name,
           date: lastTask.date,
@@ -133,12 +127,12 @@ export class PersonFormComponent {
         }));
       }
       this.serviceForm.setTaskAdded(false);
-      this.store.dispatch(removeAllPersons())
+      this.store.dispatch(removeAllPersons());
       this.resetForm();
     });
   }
-  
 
+  // TODO: Reset the form state and clear skills
   resetForm() {
     this.isPersonAdded = false;
     this.personForm.reset();

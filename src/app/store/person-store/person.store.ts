@@ -1,44 +1,42 @@
 import { createAction, createFeatureSelector, createReducer, createSelector, on, props } from "@ngrx/store";
 
-// INTERFACE PERSOM
+// TODO: Interface for a person
 export interface IPerson {
     name: string;
     age: number;
-    skills: string[] ;
+    skills: string[];
 }
 
+// TODO: Initial state is an empty array of persons
 const initialState: IPerson[] = [];
 
-//ACTIONS 
-// Acción de agregar persona
+// ACTIONS 
+// TODO: Action to add a person
 export const addPerson = createAction(
     '[PERSON] Add Person',
     props<{ name: string; age: number; skills: string[] }>()
-  );
+);
 
-  //LIMPIAR LA LISTA DEL FORM
-  export const removeAllPersons = createAction('[PERSON] Remove All Persons');
+// TODO: Action to remove all persons
+export const removeAllPersons = createAction('[PERSON] Remove All Persons');
   
-  // Reductor
-  export const personReducer = createReducer(
+// TODO: Reducer to manage person state
+export const personReducer = createReducer(
     initialState,
     on(addPerson, (state, { name, age, skills }) => [
-      ...state,
-      { name, age, skills }
+        ...state,
+        { name, age, skills } // TODO: Add the new person to the state
     ]),
-    on(removeAllPersons, () => [])
-  );
-  
-// INITIAL STATE
+    on(removeAllPersons, () => []) // TODO: Clear the state when all persons are removed
+);
 
+// SELECTORS
 
-
-
-// SELECTOR FOR PERSONS
+// TODO: Create a feature selector for persons
 const selectPersonFeature = createFeatureSelector<IPerson[]>('persons');
 
-//SELECTOR FOR ALL PERSONS
+// TODO: Selector to get all persons
 export const selectPersons = createSelector(
     selectPersonFeature,
-    (state: IPerson[]) => state
+    (state: IPerson[]) => state // TODO: Return the current state of persons
 );

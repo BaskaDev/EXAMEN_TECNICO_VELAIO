@@ -13,15 +13,16 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatListModule
   ],
-  templateUrl: './skills-dialog.component.html', // Cambia a templateUrl
+  templateUrl: './skills-dialog.component.html', // TODO: Change to templateUrl
 })
 export class SkillsDialogComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { person: any },
-    private dialogRef: MatDialogRef<SkillsDialogComponent> // Inyecta MatDialogRef
+    @Inject(MAT_DIALOG_DATA) public data: { person: any }, // TODO: Inject data containing the person object
+    private dialogRef: MatDialogRef<SkillsDialogComponent> // TODO: Inject MatDialogRef to control the dialog
   ) {}
 
+  // TODO: Close the dialog
   close() {
-    this.dialogRef.close(); // Cierra el diálogo
+    this.dialogRef.close(); // Close the dialog
   }
 }

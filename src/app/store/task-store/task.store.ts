@@ -21,6 +21,12 @@ export const updateTask = createAction(
     props<{  name: string; date: string; state: boolean; persons: IPerson[] }>() // Usamos Partial para actualizar campos específicos
 );
 
+// TODO: REMOVE TASK
+export const removeTask = createAction(
+    '[TASK] Remove Task',
+    props<{ task: ITask }>()
+);
+
 // TODO: INITIAL STATE IS EMPTY
 const initialState: ITask[] = [];
 
@@ -35,6 +41,8 @@ export const taskReducer = createReducer(
         state.map(task => 
           task.name === name ? { ...task, name, date, state: taskState, persons } : task
         )
+    ),on(removeTask, (state, { task }) => 
+        state.filter(existingTask => existingTask !== task) // Elimina la tarea completa
     )
 );
 

@@ -16,7 +16,6 @@ import { addTask, ITask, selectTasks } from 'src/app/store/task-store/task.store
 import { PersonFormComponent } from "../person-form/person-form.component";
 import { TasksListComponent } from "../tasks-list/tasks-list.component";
 
-
 @Component({
   selector: 'app-task-create',
   standalone: true,
@@ -33,36 +32,36 @@ import { TasksListComponent } from "../tasks-list/tasks-list.component";
     MatNativeDateModule,
     PersonFormComponent,
     TasksListComponent
-],
+  ],
   templateUrl: './task-create.component.html',
   styleUrls: ['./task-create.component.css'],
 })
-export class TaskCreateComponent implements OnInit  {
+export class TaskCreateComponent implements OnInit {
   taskForm: FormGroup;
   tasks$: Observable<ITask[]> = new Observable<ITask[]>(); 
-  taskAdded :boolean;
-  addedTask : ITask | undefined;
-  store = inject(Store)
-  tasks = this.store.selectSignal(selectTasks)
-
+  taskAdded: boolean;
+  addedTask: ITask | undefined;
+  store = inject(Store);
+  tasks = this.store.selectSignal(selectTasks);
 
   ngOnInit() {
+    // TODO: Subscribe to the taskAdded observable from the service
     this.serviceForm.taskAdded$.subscribe(value => {
       this.taskAdded = value;
-
     });
   }
 
-  constructor(private fb: FormBuilder , private serviceForm:StateFormService)  {
-   
+  constructor(private fb: FormBuilder, private serviceForm: StateFormService) {
     this.taskAdded = false;
 
+    // TODO: Initialize the task form with validators
     this.taskForm = this.fb.group({
-      taskName: ['', [Validators.required , this.lengthValidator]],
+      taskName: ['', [Validators.required, this.lengthValidator]],
       dueDate: ['', [Validators.required, this.futureDateValidator]],
     });
   }
 
+  // TODO: Validate that the task name length is greater than 5
   lengthValidator(control: FormControl) {
     const value = control.value;
   
@@ -73,6 +72,7 @@ export class TaskCreateComponent implements OnInit  {
     return { 'lengthInvalid': true }; 
   }
 
+  // TODO: Validate that the selected date is in the future
   futureDateValidator(control: FormControl): { [key: string]: boolean } | null {
     if (!control.value) {
       return null; 
@@ -85,11 +85,12 @@ export class TaskCreateComponent implements OnInit  {
     return selectedDate < today ? { pastDate: true } : null; 
   }
 
+  // TODO: Track tasks by their name
   trackByTaskName(index: number, task: ITask): string {
-    return task.name; // Asegúrate de que 'name' es único para cada tarea
+    return task.name; // Ensure 'name' is unique for each task
   }
   
-
+  // TODO: Handle form submission
   onSubmit(): void {
     if (this.taskForm.valid) {
       this.addTask(this.taskForm.value);
@@ -99,30 +100,29 @@ export class TaskCreateComponent implements OnInit  {
     }
   }
 
+  // TODO: Add a task to the store
   addTask(formValue: { taskName: string; dueDate: string }): void {
-
     const task: ITask = {
       name: formValue.taskName,
       date: formValue.dueDate,
       state: false,
       persons: [], 
     };
-  
 
-    this.store.dispatch(addTask( task)); 
+    this.store.dispatch(addTask(task)); 
     this.addedTask = task;
-    this.setValue()
-    this.resetForm()
-    
+    this.setValue();
+    this.resetForm();
   }
 
+  // TODO: Set the taskAdded flag and notify the service
   setValue(): void {
     this.taskAdded = true;
     this.serviceForm.setTaskAdded(true);
   }
 
-  resetForm(){
+  // TODO: Reset the task form
+  resetForm() {
     this.taskForm.reset();
   }
-  
 }
