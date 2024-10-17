@@ -45,11 +45,11 @@ import { taskReducer } from './store/task-store/task.store';
     MatDividerModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatChipsModule, // Si decides mantener chips
+    MatChipsModule, 
     MatIconModule,
-    MatSidenavModule, // Añadido para el menú lateral
-    MatListModule, // Añadido para listas
-    MatDialogModule, // Asegúrate de importar MatDialogModule
+    MatSidenavModule,
+    MatListModule, 
+    MatDialogModule, 
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forFeature('persons', personReducer),
